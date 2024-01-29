@@ -50,25 +50,33 @@ pipx ensurepath
 
 # What is what
 Files at root:
-- CMakeLists.txt: Where the cmake project is defined. Links libraries, version control, etc.
-- LICENSE: license for this repo here
-- pyproject.toml: For scikit-build-core, used to create a python package. CMakeLists uses information from that ($SKIBUILD params).
-- README.md: You are here.
-- requirements.txt: pip requirements for this repo to run (python side)
+- ``CMakeLists.txt``: Where the cmake project is defined. Links libraries, version control, etc.
+- ``LICENSE``: license for this repo here
+- ``pyproject.toml``: For scikit-build-core, used to create a python package. CMakeLists uses information from that ($SKIBUILD params).
+- ``README.md``: You are here.
+- ``requirements.txt``: pip requirements for this repo to run (python side)
+
 
 Dirs at root:
-- build: cmake is putting everything in here
-- dist: not here yet, automatically created by scikit-core-build when running pipx. Note: pip is installing stuff internally. Pipx makes it directly accessible to us instead
-- src: where all the code lives
-- test: not used right now, can be used for testing
+- ``build/``: cmake is putting everything in here
+- ``dist/``: not here yet, automatically created by scikit-core-build when running pipx. Note: pip is installing stuff internally. Pipx makes it directly accessible to us instead
+- ``src/``: where all the code lives
+- ``test/``: not used right now, can be used for testing
 
-Src structure:
-- sspy: Just for the python package. Has an __init__.py file that you need to adapt when adding new c++ files etc
-- multiply.cpp: c++ implementation of a multiply function
-- multply.h: header for multiply.cpp
-- run_sspy.cpp: binding code - glues c++ to python via Pybind11 syntax. Includes also the add and subtract function
-- test.cpp: a runnable / executable file to test the multiply function directly in c++
-- test: created as an output file when compiling test.cpp
+
+src structure:
+- ``sspy/``: Just for the python package. Has an __init__.py file that you need to adapt when adding new c++ files etc
+- ``custom_class/``: Example of a separate dir structure that contains other classes. Subdir ``include/`` contains the .h headerfiles of the cpp. Subdir ``src/`` contains the cpp implementations of the headerfiles. (e.g. ``my_class.h`` and ``my_class.cpp``)
+
+
+Example files, directly in src:
+- ``multiply.cpp``: c++ implementation of a multiply function
+- ``multiply.h``: header for multiply.cpp
+- ``run_sspy.cpp``: binding code - glues c++ to python via Pybind11 syntax. Includes also the add and subtract function
+- ``string_example.cpp``: example function taking strings as input. example file that has different name than the function it contains.
+- ``string_example.h``: header file for string_example.cpp
+- ``test.cpp``: a runnable / executable file to test the multiply function directly in c++
+- ``test``: created as an output file when compiling test.cpp
 
 # Building the project
 These are just different levels of abstraction. You can skip immediately to pip installing.
@@ -138,6 +146,10 @@ import sspy
 result_add = sspy.add(5, 6)
 result_sub = sspy.subtract(5, 6)
 result_mul = sspy.multiply(5, 6)
+result_div = sspy.divide(5, 6)
+str_size = sspy.string_size("hello")
+rep = sspy.Repetitor(3, "meow")
+rep.repeat()
 ```
 
 # Helpful Links
@@ -153,3 +165,7 @@ https://github.com/pybind/scikit_build_example/blob/master/src/main.cpp
 
 linking libraries in pybind11:
 https://github.com/pybind/pybind11/issues/387
+
+classes in pybind11:
+https://pybind11.readthedocs.io/en/stable/classes.html
+https://pybind11.readthedocs.io/en/stable/advanced/classes.html
