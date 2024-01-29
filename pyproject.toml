@@ -1,0 +1,19 @@
+[build-system]
+
+requires = ["scikit-build-core", "pybind11"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "sspy"
+version = "0.1.0"
+description = "blubb"
+readme = "README.md"
+authors = [
+  { name = "Julia Kaltenborn", email = "julia.kaltenborn@slf.ch"},
+]
+requires-python = ">=3.9"
+
+[project.optinoal-dependencies]
+
+[tool.scikit-build]
+wheel.expand-macos-universal-tags = true
